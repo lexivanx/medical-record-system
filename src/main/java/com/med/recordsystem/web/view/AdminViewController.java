@@ -46,6 +46,14 @@ public class AdminViewController {
             }
         }
 
+        if ("DOCTOR".equals(user.getRole())) {
+            if (user.getSpecialty() == null || user.getSpecialty().isEmpty()) {
+                model.addAttribute("errorMessage", "Doctors require a specialty.");
+                model.addAttribute("users", userService.getAllUsers());
+                return "admin/users";
+            }
+        }
+
         if ("ADMIN".equals(user.getRole()) || "DOCTOR".equals(user.getRole())) {
             user.setIsEnsured(null);
         }
