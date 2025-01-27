@@ -101,8 +101,8 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username already exists.");
         }
 
-        if (user.getEgn() == null || !String.valueOf(user.getEgn()).matches("\\d{10}")) {
-            return ResponseEntity.badRequest().body("EGN must be exactly 10 digits.");
+        if (user.getEgn() == null || !user.getEgn().matches("\\d{10}")) {
+            return ResponseEntity.badRequest().body("EGN must be exactly 10 digits and contain only numbers.");
         }
 
         User doctor = userService.getUserById(personalDoctorId)

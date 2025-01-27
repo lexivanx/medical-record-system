@@ -27,8 +27,8 @@ public class User implements UserDetails {
     @Column(name = "full_name", nullable = false) // Explicit column name
     private String fullName;
 
-    @Column(nullable = true)
-    private Long egn;
+    @Column(nullable = true, length = 10) // Updated to String to preserve leading zeros
+    private String egn;
 
     @Column(name = "is_ensured", nullable = true)
     private Boolean isEnsured;
@@ -65,7 +65,7 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String role, String username, String password, String fullName, Long egn, Boolean isEnsured, String specialty) {
+    public User(String role, String username, String password, String fullName, String egn, Boolean isEnsured, String specialty) {
         this.role = role;
         this.username = username;
         this.password = password;
@@ -120,11 +120,11 @@ public class User implements UserDetails {
         this.fullName = fullName;
     }
 
-    public Long getEgn() {
+    public String getEgn() {
         return egn;
     }
 
-    public void setEgn(Long egn) {
+    public void setEgn(String egn) {
         this.egn = egn;
     }
 

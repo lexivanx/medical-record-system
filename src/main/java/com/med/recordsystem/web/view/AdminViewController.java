@@ -39,8 +39,8 @@ public class AdminViewController {
     @PostMapping("/users")
     public String createUser(@ModelAttribute User user, Model model) {
         if ("PATIENT".equals(user.getRole())) {
-            if (user.getEgn() == null || String.valueOf(user.getEgn()).length() != 10) {
-                model.addAttribute("errorMessage", "EGN must be exactly 10 digits.");
+            if (user.getEgn() == null || !user.getEgn().matches("\\d{10}")) {
+                model.addAttribute("errorMessage", "EGN must be exactly 10 digits and contain only numbers.");
                 model.addAttribute("users", userService.getAllUsers());
                 return "admin/users";
             }
@@ -72,8 +72,8 @@ public class AdminViewController {
     @PostMapping("/users/{id}/update")
     public String updateUser(@PathVariable Long id, @ModelAttribute User user, Model model) {
         if ("PATIENT".equals(user.getRole())) {
-            if (user.getEgn() == null || String.valueOf(user.getEgn()).length() != 10) {
-                model.addAttribute("errorMessage", "EGN must be exactly 10 digits.");
+            if (user.getEgn() == null || !user.getEgn().matches("\\d{10}")) {
+                model.addAttribute("errorMessage", "EGN must be exactly 10 digits and contain only numbers.");
                 model.addAttribute("user", userService.getUserById(id).orElseThrow(() -> new RuntimeException("User not found")));
                 return "admin/edit-user";
             }
