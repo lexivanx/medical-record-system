@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Manage Personal Doctors</h3>
+
+    <form th:action="@{/admin/personal-docs}" method="post" class="bg-white p-4 rounded shadow-sm mb-4">
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Doctor</label>
+            <select id="doctor" name="doctorId" class="form-select" required>
+                <option th:each="doctor : ${doctors}" th:value="${doctor.id}" th:text="${doctor.fullName}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="patient" class="form-label">Patient</label>
+            <select id="patient" name="patientId" class="form-select" required>
+                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.fullName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Personal Doctor</button>
+    </form>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Doctor</th>
+            <th>Patient</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="personalDoc : ${personalDocs}">
+            <td th:text="${personalDoc.doctor.fullName}"></td>
+            <td th:text="${personalDoc.patient.fullName}"></td>
+            <td>
+                <form th:action="@{/admin/personal-docs/{id}/delete(id=${personalDoc.id.doctorId + '_' + personalDoc.id.patientId})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+</body>
+</html>

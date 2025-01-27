@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">System Reports and Analytics</h3>
+
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+    <form id="reportForm" method="post" th:action="@{/admin/reports/run}" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <label for="report-select" class="form-label">Select Query</label>
+            <select id="report-select" name="query" class="form-select" th:value="${selectedQuery}">
+                <option value="" disabled>Select Query</option>
+                <option value="1" th:selected="${selectedQuery == '1'}">List of all patients with a diagnosis</option>
+                <option value="2" th:selected="${selectedQuery == '2'}">Sum of patients per diagnosis</option>
+                <option value="3" th:selected="${selectedQuery == '3'}">List of all patients with a specific personal doctor</option>
+                <option value="4" th:selected="${selectedQuery == '4'}">Sum of patients per personal doctor</option>
+                <option value="5" th:selected="${selectedQuery == '5'}">Sum of visits per doctor</option>
+                <option value="6" th:selected="${selectedQuery == '6'}">List of all visits of a patient</option>
+                <option value="7" th:selected="${selectedQuery == '7'}">Visits of all doctors in a specific period</option>
+                <option value="8" th:selected="${selectedQuery == '8'}">Visits of a specific doctor in a specific period</option>
+                <option value="9" th:selected="${selectedQuery == '9'}">Month with the most sick leaves</option>
+                <option value="10" th:selected="${selectedQuery == '10'}">Doctor with the most sick leaves</option>
+            </select>
+        </div>
+
+        <div id="diagnosis-dropdown" class="mb-3 d-none">
+            <label for="diagnosis" class="form-label">Select Diagnosis</label>
+            <select id="diagnosis" name="diagnosisId" class="form-select" th:value="${selectedDiagnosisId}">
+                <option value="" disabled>Select Diagnosis</option>
+                <option th:each="diagnosis : ${diagnoses}"
+                        th:value="${diagnosis.id}"
+                        th:text="${diagnosis.name}"
+                        th:selected="${diagnosis.id} == ${selectedDiagnosisId}">
+                </option>
+            </select>
+        </div>
+
+        <div id="doctor-dropdown" class="mb-3 d-none">
+            <label for="doctor" class="form-label">Select Doctor</label>
+            <select id="doctor" name="doctorId" class="form-select" th:value="${selectedDoctorId}">
+                <option value="" disabled>Select Doctor</option>
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.id}"
+                        th:text="${doctor.fullName}"
+                        th:selected="${doctor.id} == ${selectedDoctorId}">
+                </option>
+            </select>
+        </div>
+
+        <div id="patient-dropdown" class="mb-3 d-none">
+            <label for="patient" class="form-label">Select Patient</label>
+            <select id="patient" name="patientId" class="form-select" th:value="${selectedPatientId}">
+                <option value="" disabled>Select Patient</option>
+                <option th:each="patient : ${patients}"
+                        th:value="${patient.id}"
+                        th:text="${patient.fullName}"
+                        th:selected="${patient.id} == ${selectedPatientId}">
+                </option>
+            </select>
+        </div>
+
+        <div id="date-range" class="mb-3 d-none">
+            <label for="start-date" class="form-label">Start Date</label>
+            <input type="date" id="start-date" name="startDate" class="form-control" th:value="${selectedStartDate}" />
+
+            <label for="end-date" class="form-label mt-2">End Date</label>
+            <input type="date" id="end-date" name="endDate" class="form-control" th:value="${selectedEndDate}" />
+        </div>
+
+        <div id="year-input" class="mb-3 d-none">
+            <label for="year" class="form-label">Enter Year</label>
+            <input type="number" id="year" name="year" class="form-control"
+                   placeholder="e.g. 2025"
+                   th:value="${selectedYear}" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Run Query</button>
+    </form>
+
+    <div th:if="${headers != null}" class="mt-5">
+        <h4>Query Results</h4>
+        <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th th:each="header : ${headers}" th:text="${header}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${results}">
+                <td th:each="cell : ${row}" th:text="${cell}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="/js/reports.js"></script>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+</body>
+</html>

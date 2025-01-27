@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+<div class="container mt-5">
+    <h3 class="text-center mb-4">Register</h3>
+    <form id="registerForm" class="bg-white p-4 rounded shadow-sm">
+
+        <div id="errorMessage" class="alert alert-danger" style="display: none;"></div>
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username (required):</label>
+            <input type="text" id="username" name="username" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password (required):</label>
+            <input type="password" id="password" name="password" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="full_name" class="form-label">Full Name (required):</label>
+            <input type="text" id="full_name" name="full_name" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="egn" class="form-label">EGN (required):</label>
+            <input type="number" id="egn" name="egn" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Select Personal Doctor (required):</label>
+            <select id="doctor" name="personalDoctorId" class="form-select" required>
+                <option value="" disabled selected>Select a doctor</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Register</button>
+    </form>
+
+    <p class="text-center mt-3">
+        Already have an account? <a th:href="@{/login}" class="text-primary">Login here</a>.
+    </p>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+<script th:src="@{/js/register.js}"></script>
+</body>
+</html>

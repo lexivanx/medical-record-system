@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Account Information</h3>
+    <ul class="list-group">
+        <li class="list-group-item d-block"><strong>Username:</strong> <span id="username">Loading...</span></li>
+        <li class="list-group-item d-block"><strong>Full Name:</strong> <span id="fullName">Loading...</span></li>
+        <li id="roleField" class="list-group-item d-none"><strong>Role:</strong> <span id="role">Loading...</span></li>
+        <li id="egnField" class="list-group-item d-none"><strong>EGN:</strong> <span id="egn">Loading...</span></li>
+        <li id="healthInsuranceField" class="list-group-item d-none"><strong>Health Insurance:</strong> <span id="isEnsured">Loading...</span></li>
+        <li id="specialtyField" class="list-group-item d-none"><strong>Specialty:</strong> <span id="specialty">Loading...</span></li>
+    </ul>
+
+    <p id="personalDoctorField" class="list-group-item d-none">
+        <strong>Personal Doctor:</strong> <span id="personalDoctor">Loading...</span>
+    </p>
+
+    <div id="patientLinks" class="mt-5 d-none">
+        <h2>Patient Section</h2>
+        <a th:href="@{/patients/visits}" class="btn btn-outline-primary me-2 mb-2">View My Visits</a>
+        <a th:href="@{/sick-leaves}" class="btn btn-outline-primary mb-2">View My Sick Leaves</a>
+    </div>
+
+    <div id="adminSection" class="mt-5 d-none">
+        <h2>Admin Section</h2>
+        <a href="/admin/reports" class="btn btn-outline-secondary me-2 mb-2">System Reports</a>
+        <a href="/admin/users" class="btn btn-outline-secondary me-2 mb-2">Manage Users</a>
+        <a href="/admin/sick-leaves" class="btn btn-outline-secondary me-2 mb-2">Manage Sick Leaves</a>
+        <a href="/admin/user-diagnoses" class="btn btn-outline-secondary me-2 mb-2">Manage User Diagnoses</a>
+        <a href="/admin/visits" class="btn btn-outline-secondary me-2 mb-2">Manage Visits</a>
+        <a href="/admin/personal-docs" class="btn btn-outline-secondary me-2 mb-2">Manage Personal Doctors</a>
+        <a href="/admin/diagnoses" class="btn btn-outline-secondary me-2 mb-2">Manage Available Diagnoses</a>
+    </div>
+
+    <div id="doctorSection" class="mt-5 d-none">
+        <h2>Doctor Section</h2>
+        <a th:href="@{/doctor/visits}" class="btn btn-outline-success me-2 mb-2">Manage Visits</a>
+        <a th:href="@{/doctor/user-diagnoses}" class="btn btn-outline-success me-2 mb-2">Manage User Diagnoses</a>
+        <a th:href="@{/doctor/sick-leaves}" class="btn btn-outline-success me-2 mb-2">Manage Sick Leaves</a>
+    </div>
+</div>
+
+<footer th:fragment="footer" class="mt-auto bg-dark text-white text-center py-3 fixed-bottom">
+    <div class="container">
+        Medical record system Web 2025
+    </div>
+</footer>
+
+<script th:src="@{/js/user-details.js}"></script>
+</body>
+</html>

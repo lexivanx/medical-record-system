@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Edit Visit</h3>
+    <form th:action="@{/doctor/visits/{id}/update(id=${visit.id})}" method="post" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <input type="datetime-local" name="slot" th:value="${visit.slot}" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <textarea name="treatment" th:text="${visit.treatment}" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <select name="patient.id" class="form-select" required>
+                <option th:each="patient : ${patients}" th:value="${patient.id}"
+                        th:selected="${patient.id == visit.patient.id}" th:text="${patient.fullName}"></option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+    <div class="mt-3">
+        <a th:href="@{/doctor/visits}" class="btn btn-secondary">Back to visits</a>
+    </div>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+</body>
+</html>

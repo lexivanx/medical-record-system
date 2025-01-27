@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Manage Sick Leaves</h3>
+    <form th:action="@{/doctor/sick-leaves}" method="post" class="bg-white p-4 rounded shadow-sm mb-4">
+        <div class="mb-3">
+            <select name="patient.id" class="form-select" required>
+                <option value="" disabled selected>Select Patient</option>
+                <option th:each="patient : ${patients}" th:value="${patient.id}" th:text="${patient.fullName}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="date" name="dateStart" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <input type="number" name="durationDays" class="form-control" placeholder="Duration (Days)" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Add Sick Leave</button>
+    </form>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Patient</th>
+            <th>Start Date</th>
+            <th>Duration (Days)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sickLeave : ${sickLeaves}">
+            <td th:text="${sickLeave.patient.fullName}"></td>
+            <td th:text="${sickLeave.dateStart}"></td>
+            <td th:text="${sickLeave.durationDays}"></td>
+            <td>
+                <form th:action="@{/doctor/sick-leaves/{id}/delete(id=${sickLeave.id})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                <a th:href="@{/doctor/sick-leaves/{id}/edit(id=${sickLeave.id})}" class="btn btn-warning btn-sm">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragments :: footer"></footer>
+</body>
+</html>

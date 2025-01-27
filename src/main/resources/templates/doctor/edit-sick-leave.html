@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Edit Sick Leave</h3>
+    <form th:action="@{/doctor/sick-leaves/{id}/update(id=${sickLeave.id})}" method="post" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <select name="patient.id" class="form-select" required>
+                <option th:each="patient : ${patients}" th:value="${patient.id}"
+                        th:selected="${patient.id == sickLeave.patient.id}" th:text="${patient.fullName}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <input type="date" name="dateStart" th:value="${sickLeave.dateStart}" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <input type="number" name="durationDays" th:value="${sickLeave.durationDays}" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+</body>
+</html>

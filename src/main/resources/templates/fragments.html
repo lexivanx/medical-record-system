@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="head">
+    <title>Medical record system</title>
+    <meta charset="UTF-8">
+    <link href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:fragment="header" class="bg-primary text-white py-3">
+    <div class="container">
+        <h1 class="h3 mb-0">Medical record system</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-3 rounded shadow-sm">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <form th:action="@{/logout}" method="post" class="d-inline">
+                                <button class="btn btn-link nav-link" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<footer th:fragment="footer" class="mt-auto bg-dark text-white text-center py-3">
+    <div class="container">
+        Medical record system Web 2025
+    </div>
+</footer>
+</body>
+</html>

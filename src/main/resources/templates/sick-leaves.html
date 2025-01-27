@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">My Sick Leaves</h3>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Start Date</th>
+            <th>Duration (days)</th>
+            <th>Doctor</th>
+        </tr>
+        </thead>
+        <tbody id="sickLeavesTableBody">
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+<script th:src="@{/js/sick-leaves.js}"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: head"></head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header th:replace="fragments :: header"></header>
+
+<div class="container mt-5">
+    <h3 class="mb-4">Edit Visit</h3>
+    <form th:action="@{/admin/visits/{id}/update(id=${visit.id})}" method="post" class="bg-white p-4 rounded shadow-sm">
+        <div class="mb-3">
+            <label for="slot" class="form-label">Slot</label>
+            <input type="datetime-local" id="slot" name="slot" class="form-control" th:value="${visit.slot}" required />
+        </div>
+
+        <div class="mb-3">
+            <label for="treatment" class="form-label">Treatment</label>
+            <textarea id="treatment" name="treatment" class="form-control" rows="3" th:text="${visit.treatment}"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="patient" class="form-label">Patient</label>
+            <select id="patient" name="patient.id" class="form-select" required>
+                <option th:each="patient : ${patients}" th:value="${patient.id}"
+                        th:selected="${patient.id == visit.patient.id}"
+                        th:text="${patient.fullName}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="doctor" class="form-label">Doctor</label>
+            <select id="doctor" name="doctor.id" class="form-select" required>
+                <option th:each="doctor : ${doctors}" th:value="${doctor.id}"
+                        th:selected="${doctor.id == visit.doctor.id}"
+                        th:text="${doctor.fullName}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Save</button>
+    </form>
+</div>
+
+<footer th:replace="fragments :: footer" class="mt-auto bg-dark text-white text-center py-3"></footer>
+</body>
+</html>
